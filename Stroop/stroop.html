@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<!--
+NB - Crafted with the ubiquitous, bugfree VanillaJS framework
+Using Milli Vanilli's invisible CDN.
+-->
+<head>
+  <style>
+    .yellowElt {
+      color: gold;
+    }
+
+    .redElt {
+      color: red;
+    }
+
+    .blueElt {
+      color: blue;
+    }
+
+    .purpleElt {
+      color: purple;
+    }
+
+    .greenElt {
+      color: green;
+    }
+
+    .orangeElt {
+      color: orange; 
+    }
+
+  .blackElt {
+      color: black;
+    }
+
+    .scrollrev {
+      height: 100px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    table, th, td {
+      border: 2px solid #a79f9fea;
+      border-collapse: collapse;
+      font-size: 30px;
+      font-weight: 900;
+    }
+
+    td { 
+      text-align: center;
+    }
+
+    button { 
+       font-weight: 700;
+    }
+      #inst {
+    background-color: rgb(241, 241, 181);
+    margin: 2%;
+    padding: 2%;
+    border: 2px solid rgba(0,0,0,0.5);
+    width: 80%;
+    }
+  </style>
+  <title>
+    Multi Lingual Stroop Test
+  </title>
+</head>
+
+<body>
+  <div id="inst">
+  <h1>
+    Multi Lingual Stroop Test
+  </h1>
+  <h3>
+  Instructions - watch the scrolling strings of characters, and say theirs colors (aloud if possible)
+</h3>
+<h3>
+  Note cases where you have difficulty
+</h3>
+</div>
+  <p>
+  </p>
+
+  <!--
+     <div   style="height:120px; width:400px; overflow-y: scroll;">
+  -->
+  <div style="height:340px; width:1200px;" class="scrollrev">
+
+    <table id="myTable">
+      <tr>
+      </tr>
+    </table>
+  </div>
+  <p>
+  </p>
+
+  <button onclick="toggleCall()">Click to Stop / Start</button>
+  <button onclick="raiseBias()">Click to make more difficult</button>
+ 
+<p>
+</p>
+<p>
+
+</p>
+  <a href="https://www.omniglot.com/language/colours/multilingual.htm">Source of Multiliingual color words</a>
+  
+</body>
+
+<script>
+
+
+
+  /*
+   * range is like python range, but better !
+   *        range (n) => [0 .. n-1]
+   *     range (n, m) => [n ... m-1]
+   *  range (n, m, s) => [n, n+s, .... (m-1)]
+   *  range (n, func) => [func(0) ... func(n-1)]
+   */
+  const range = function (n, funcM, s) {
+    let fun = (x) => x;
+    let start = 0;
+    let step = 1;
+    let lim = n;
+    if ("number" === typeof funcM) {
+      start = n;
+      step = s || 1;
+      lim = funcM;
+    } else if ("function" === typeof funcM) {
+      fun = funcM;
+    }
+
+    let res = [];
+    for (let i = start; i < lim; i += step) {
+      res.push(fun(i));
+    }
+    return res;
+  };
+
+  // Fisher-Yates shuffle, from rosettacode.org
+  const shuffle = function (ar) {
+      for (var i = 0; i < ar.length; i++)
+        ar[i] = ar.splice(
+          parseInt(ar.length * Math.random()), 1, ar[i])[0];
+      return ar;
+  };
+
+
+
+ 
+
+  // random integer with ability to exclude 1 value
+  const randInt = function (max, except) {
+    if (1 >= max) {
+      return 0;
+    } else {
+      let res = -1;
+      for (; ;) {
+        res = Math.floor(Math.random() * Math.floor(max));
+        if (res !== except) { break; }
+      }
+      return res;
+    }
+  };
+
+
+  //  [ "",  "", "", "", "", "" ],
+
+  // gleaned from:  https://www.omniglot.com/language/colours/multilingual.htm
+  const langTbl = {
+    "English": ["red", "yellow", "blue", "green", "black", "purple"],
+    "Arabic": ["أحمر", "أصفر", "أزرق", "أخضر", "أسود", "بنفسجيّ"],
+    "Bengali": ["লল", "হলুদ", "নীল", "সবুজ", "কালো", "বেগুন"],
+    "Choctaw": ["homma", "lakna", "okchamali", "okchakko", "lusa", "okchakvlbi"],
+    "Mandarin": ["紅色 [红]", "黄色", "藍色 [蓝]", "綠色 [绿]", "黑色", "紫色"],
+    "Russian": ["чёрный", "жёлтый", "синий", "зелёный", "оранжевый", "фиолетовый"],
+    "Gelic" :  ["dearg", "buí", "gorm", "glas", "dubh", "corcra"],
+    "Thai" :   ["สีแดง", "สีเหลือง", "สีฟ้า", "สีเขียว", "สีดำ", "สีม่วง"],
+    "Korean" :  ["빨간 색", "노란 색", "파란 색", "녹 색", "검은 색", "보라 색"],
+    "Burmese" :  ["နီေသာ", "ဝါေသာ", "ြပေသာ", "စိမ်းေသာ", "နက်သော", "ခရမ္းရောင်"]
+  };
+
+
+  //let colors = [ "red", "blue", "green" , "purple", "orange", "yellow"];
+  const colors = langTbl["English"];
+  const nColors = colors.length;
+  const colorClasses = colors.map(c => c + "Elt");
+  const nCells = 3;
+  const langs = Object.keys(langTbl);
+  const nLangs = langs.length;
+  let bias = 1.0e-7;
+
+
+  const rowFunction = function () {
+    const  table = document.getElementById("myTable");
+    const  len = table.rows.length;
+    const  row = table.insertRow(len);
+    let probEnglish = bias;
+    bias = Math.pow(bias, 0.7);
+    console.log(`probEnglish=${probEnglish}`);
+
+    // note - choose random languages, ommitting English
+    let langsToUse = shuffle(range(nCells, (x) =>  langs[1 + randInt(nLangs-1)]));
+
+    // then probabilistically convert some into english
+    range(nCells).forEach(i=> {
+      if  ((Math.random() <= probEnglish)) { 
+         langsToUse[i] = 'English';
+      }
+    });
+
+    console.log(`langs to use: ${langsToUse}`);
+    const scramCells = shuffle(range(nColors));
+
+    for (var i = 0; i < nCells; ++i) {
+      const cell = row.insertCell(i);
+      const lang = langsToUse[i];
+      const colNames= langTbl[lang];
+      const colName = colNames[scramCells[i]];
+      console.log(`lang for i=${i} is ${lang}, colName is ${colName}`);
+  
+      // choose any color class except the right one for this position
+      const colClass = colorClasses[randInt(nColors,i)];
+
+      // any class EXCEPT for the right one for this color
+      // cls = colorClasses[randInt(6, clrIndex)];
+      cell.innerHTML = `<span class="${colClass}">${colName}</span>`;
+    }
+
+
+  };
+
+  var keepCalling = false;
+
+  const toggleCall = function () {
+    keepCalling = !keepCalling;
+    if (keepCalling) { callForever(); }
+  };
+
+  const callForever = function () {
+    if (keepCalling) {
+      console.log(`callforever()`);
+      rowFunction()
+      setTimeout(() => {
+        callForever();
+      }, 3000);
+    }
+  }
+
+const raiseBias = function() { 
+  bias = Math.pow(bias, 0.3);
+}
+ 
+
+</script>
+
+</html>
