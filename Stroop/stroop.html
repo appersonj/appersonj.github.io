@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <!--
-NB - Crafted with the ubiquitous, bugfree VanillaJS framework
+NB - Crafted with the ubiquitous, minimal, bugfree VanillaJS framework
 Using Milli Vanilli's invisible CDN.
 -->
 <head>
@@ -76,9 +76,9 @@ Using Milli Vanilli's invisible CDN.
   <h3>
   Instructions - watch the scrolling strings of characters, and say theirs colors (aloud if possible)
 </h3>
-<h3>
-  Note cases where you have difficulty
-</h3>
+<h4>
+  Note cases where you have difficulty.   DO NOT read the words, just report the colors,
+</h4>
 </div>
   <p>
   </p>
@@ -218,11 +218,12 @@ Using Milli Vanilli's invisible CDN.
       const cell = row.insertCell(i);
       const lang = langsToUse[i];
       const colNames= langTbl[lang];
-      const colName = colNames[scramCells[i]];
+      const colNum  = scramCells[i];
+      const colName = colNames[colNum];
       console.log(`lang for i=${i} is ${lang}, colName is ${colName}`);
   
       // choose any color class except the right one for this position
-      const colClass = colorClasses[randInt(nColors,i)];
+      const colClass = colorClasses[randInt(nColors,colNum)];
 
       // any class EXCEPT for the right one for this color
       // cls = colorClasses[randInt(6, clrIndex)];
