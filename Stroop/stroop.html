@@ -4,6 +4,7 @@
 NB - Crafted with the ubiquitous, minimal, bugfree VanillaJS framework
 Using Milli Vanilli's invisible CDN.
 -->
+
 <head>
   <style>
     .yellowElt {
@@ -27,10 +28,10 @@ Using Milli Vanilli's invisible CDN.
     }
 
     .orangeElt {
-      color: orange; 
+      color: orange;
     }
 
-  .blackElt {
+    .blackElt {
       color: black;
     }
 
@@ -41,47 +42,50 @@ Using Milli Vanilli's invisible CDN.
       flex-direction: column-reverse;
     }
 
-    table, th, td {
+    table,
+    th,
+    td {
       border: 2px solid #a79f9fea;
       border-collapse: collapse;
       font-size: 30px;
       font-weight: 900;
+      margin: 1%;
+      padding: 1%;
     }
 
-    td { 
+    td {
       text-align: center;
     }
 
-    button { 
-       font-weight: 700;
-        margin: 2%;
-       padding: 2%;
-       font-size : 140%;
+    button {
+      font-weight: 700;
+      margin: 2%;
+      padding: 2%;
+      font-size: 140%;
     }
 
 
     #inst {
-    background-color: rgb(241, 241, 181);
-    margin: 1%;
-    padding: 1%;
-    border: 2px solid rgba(0,0,0,0.5);
-    width: 60%;
+      background-color: rgb(241, 241, 181);
+      margin: 1%;
+      padding: 1%;
+      border: 2px solid rgba(0, 0, 0, 0.5);
+      width: 60%;
     }
 
     #btg {
       background-color: rgb(241, 241, 181);
       margin: 1%;
       padding: 1%;
-      border: 2px solid rgba(0,0,0,0.5);
+      border: 2px solid rgba(0, 0, 0, 0.5);
       width: 60%;
     }
 
-    #emph { 
+    #emph {
       margin-left: 5px;
-       margin-right: 5px;
-       font-weight: 1100;
+      margin-right: 5px;
+      font-weight: 1100;
     }
-
   </style>
   <title>
     Multi Lingual Stroop Test
@@ -90,47 +94,35 @@ Using Milli Vanilli's invisible CDN.
 
 <body>
   <div id="inst">
-  <h1>
-    Multi Lingual Stroop Test
-  </h1>
-  <h3>
-  Instructions - watch the scrolling strings of characters, and say theirs colors (aloud if possible)
-</h3>
-<h4>
-  
-  Note cases where you have difficulty.
-   <span id="emph"> DO NOT READ THE WORDS, </span>just report the colors
-</h4>
-</div>
-  <p>
-  </p>
+    <h1>
+      Multi Lingual Stroop Test
+    </h1>
+    <h3>
+      Instructions - watch the scrolling strings of characters, and say theirs colors (aloud if possible)
+    </h3>
+    <h4>
 
-  <!--
-     <div   style="height:120px; width:400px; overflow-y: scroll;">
-  -->
-  <div style="height:340px; width:1200px;" class="scrollrev">
-
+      Note cases where you have difficulty.
+      <span id="emph"> DO NOT READ THE WORDS, </span>just report the colors
+    </h4>
+  </div>
+<br>
+  <div style="height:340px; width:60%; margin-left: 5px;" class="scrollrev">
     <table id="myTable">
       <tr>
       </tr>
     </table>
   </div>
-  <p>
-  </p>
+  <br>
 
-<div id="btg">
-  <button     onclick="toggleCall()">Click to Stop / Start</button>
-  <button     onclick="raiseBias()">Click to make more difficult</button>
+  <div id="btg">
+    <button onclick="toggleCall()">Click to Stop / Start</button>
+    <button onclick="raiseBias()">Click to make more difficult</button>
   </div>
+<br>
+<br>
+<a href="https://www.omniglot.com/language/colours/multilingual.htm">Source of Multiliingual color words</a>
 
- 
-<p>
-</p>
-<p>
-
-</p>
-  <a href="https://www.omniglot.com/language/colours/multilingual.htm">Source of Multiliingual color words</a>
-  
 </body>
 
 <script>
@@ -166,17 +158,14 @@ Using Milli Vanilli's invisible CDN.
 
   // Fisher-Yates shuffle, from rosettacode.org
   const shuffle = function (ar) {
-      for (var i = 0; i < ar.length; i++)
-        ar[i] = ar.splice(
-          parseInt(ar.length * Math.random()), 1, ar[i])[0];
-      return ar;
+    for (var i = 0; i < ar.length; i++)
+      ar[i] = ar.splice(
+        parseInt(ar.length * Math.random()), 1, ar[i])[0];
+    return ar;
   };
 
 
-
- 
-
-  // random integer with ability to exclude 1 value
+  // random integer with ability to exclude the exception value
   const randInt = function (max, except) {
     if (1 >= max) {
       return 0;
@@ -201,10 +190,10 @@ Using Milli Vanilli's invisible CDN.
     "Choctaw": ["homma", "lakna", "okchamali", "okchakko", "lusa", "okchakvlbi"],
     "Mandarin": ["紅色 [红]", "黄色", "藍色 [蓝]", "綠色 [绿]", "黑色", "紫色"],
     "Russian": ["чёрный", "жёлтый", "синий", "зелёный", "оранжевый", "фиолетовый"],
-    "Gelic" :  ["dearg", "buí", "gorm", "glas", "dubh", "corcra"],
-    "Thai" :   ["สีแดง", "สีเหลือง", "สีฟ้า", "สีเขียว", "สีดำ", "สีม่วง"],
-    "Korean" :  ["빨간 색", "노란 색", "파란 색", "녹 색", "검은 색", "보라 색"],
-    "Burmese" :  ["နီေသာ", "ဝါေသာ", "ြပေသာ", "စိမ်းေသာ", "နက်သော", "ခရမ္းရောင်"]
+    "Gelic": ["dearg", "buí", "gorm", "glas", "dubh", "corcra"],
+    "Thai": ["สีแดง", "สีเหลือง", "สีฟ้า", "สีเขียว", "สีดำ", "สีม่วง"],
+    "Korean": ["빨간 색", "노란 색", "파란 색", "녹 색", "검은 색", "보라 색"],
+    "Burmese": ["နီေသာ", "ဝါေသာ", "ြပေသာ", "စိမ်းေသာ", "နက်သော", "ခရမ္းရောင်"]
   };
 
 
@@ -219,20 +208,20 @@ Using Milli Vanilli's invisible CDN.
 
 
   const rowFunction = function () {
-    const  table = document.getElementById("myTable");
-    const  len = table.rows.length;
-    const  row = table.insertRow(len);
+    const table = document.getElementById("myTable");
+    const len = table.rows.length;
+    const row = table.insertRow(len);
     let probEnglish = bias;
     bias = Math.pow(bias, 0.7);
     console.log(`probEnglish=${probEnglish}`);
 
     // note - choose random languages, ommitting English
-    let langsToUse = shuffle(range(nCells, (x) =>  langs[1 + randInt(nLangs-1)]));
+    let langsToUse = shuffle(range(nCells, (x) => langs[1 + randInt(nLangs - 1)]));
 
     // then probabilistically convert some into english
-    range(nCells).forEach(i=> {
-      if  ((Math.random() <= probEnglish)) { 
-         langsToUse[i] = 'English';
+    range(nCells).forEach(i => {
+      if ((Math.random() <= probEnglish)) {
+        langsToUse[i] = 'English';
       }
     });
 
@@ -242,13 +231,13 @@ Using Milli Vanilli's invisible CDN.
     for (var i = 0; i < nCells; ++i) {
       const cell = row.insertCell(i);
       let lang = langsToUse[i];
-      const colNames= langTbl[lang];
-      const colNum  = scramCells[i];
+      const colNames = langTbl[lang];
+      const colNum = scramCells[i];
       const colName = colNames[colNum];
       console.log(`lang for i=${i} is ${lang}, colName is ${colName}`);
-  
+
       // choose any color class except the right one for this position
-      const colClass = colorClasses[randInt(nColors,colNum)];
+      const colClass = colorClasses[randInt(nColors, colNum)];
 
       // any class EXCEPT for the right one for this color
       // cls = colorClasses[randInt(6, clrIndex)];
@@ -275,10 +264,10 @@ Using Milli Vanilli's invisible CDN.
     }
   }
 
-const raiseBias = function() { 
-  bias = Math.pow(bias, 0.3);
-}
- 
+  const raiseBias = function () {
+    bias = Math.pow(bias, 0.3);
+  }
+
 
 </script>
 
