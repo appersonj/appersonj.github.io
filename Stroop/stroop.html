@@ -54,14 +54,34 @@ Using Milli Vanilli's invisible CDN.
 
     button { 
        font-weight: 700;
+        margin: 2%;
+       padding: 2%;
+       font-size : 140%;
     }
-      #inst {
+
+
+    #inst {
     background-color: rgb(241, 241, 181);
-    margin: 2%;
-    padding: 2%;
+    margin: 1%;
+    padding: 1%;
     border: 2px solid rgba(0,0,0,0.5);
-    width: 80%;
+    width: 60%;
     }
+
+    #btg {
+      background-color: rgb(241, 241, 181);
+      margin: 1%;
+      padding: 1%;
+      border: 2px solid rgba(0,0,0,0.5);
+      width: 60%;
+    }
+
+    #emph { 
+      margin-left: 5px;
+       margin-right: 5px;
+       font-weight: 1100;
+    }
+
   </style>
   <title>
     Multi Lingual Stroop Test
@@ -77,7 +97,9 @@ Using Milli Vanilli's invisible CDN.
   Instructions - watch the scrolling strings of characters, and say theirs colors (aloud if possible)
 </h3>
 <h4>
-  Note cases where you have difficulty.   DO NOT read the words, just report the colors,
+  
+  Note cases where you have difficulty.
+   <span id="emph"> DO NOT READ THE WORDS, </span>just report the colors
 </h4>
 </div>
   <p>
@@ -96,8 +118,11 @@ Using Milli Vanilli's invisible CDN.
   <p>
   </p>
 
-  <button onclick="toggleCall()">Click to Stop / Start</button>
-  <button onclick="raiseBias()">Click to make more difficult</button>
+<div id="btg">
+  <button     onclick="toggleCall()">Click to Stop / Start</button>
+  <button     onclick="raiseBias()">Click to make more difficult</button>
+  </div>
+
  
 <p>
 </p>
@@ -216,7 +241,7 @@ Using Milli Vanilli's invisible CDN.
 
     for (var i = 0; i < nCells; ++i) {
       const cell = row.insertCell(i);
-      const lang = langsToUse[i];
+      let lang = langsToUse[i];
       const colNames= langTbl[lang];
       const colNum  = scramCells[i];
       const colName = colNames[colNum];
