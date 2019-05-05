@@ -1,9 +1,9 @@
 
-### Copyright (c) 2019-03-28 to Apperson H. Johnson
+### Copyright (c) 2019 to Apperson H. Johnson
 
 Note:
 
-All creative works are unrestricted w/r/t **experiental use**.
+All creative works are unrestricted w/r/t **experimental use**.
 
 This is exactly the free use supported by US Patent Law.
 
