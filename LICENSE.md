@@ -7,5 +7,5 @@ All creative works are unrestricted w/r/t **experiental use**.
 
 This is exactly the free use supported by US Patent Law.
 
-Any use accruing substaintial commercial value requires licencing.
+Any use accruing substantial (> $1M) commercial value requires licensing
 
